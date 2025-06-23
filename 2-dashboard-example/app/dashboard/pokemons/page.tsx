@@ -1,17 +1,24 @@
-export const metadata = {
-  title: 'Pokemons Page',
-  description: 'get and catch them all!',
+import { PokemonGrid, PokemonsResponse, SimplePokemon } from '@/app/pokemons/interfaces';
+
+const getPokemons = async (limit = 20, offset = 0): Promise<SimplePokemon[]> => {
+  const data: PokemonsResponse = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+  ).then(res => res.json());
+  const pokemons = data.results.map(pokemon => ({
+    id: pokemon.url.split('/').at(-2)!,
+    name: pokemon.name,
+  }));
+
+  return pokemons;
 };
 
-export default function PokemonPage() {
+export default async function PokemonsPage() {
+  const pokemons = await getPokemons(151);
+
   return (
-    <div className='flex flex-col items-center justify-center w-full h-full'>
-      <span>Pokemons</span>
-      <div className='flex flex-wrap gap-4'>
-        <img src='/pokemons/pikachu.png' alt='Pikachu' className='w-24 h-24' />
-        <img src='/pokemons/bulbasaur.png' alt='Bulbasaur' className='w-24 h-24' />
-        <img src='/pokemons/charmander.png' alt='Charmander' className='w-24 h-24' />
-      </div>
+    <div className='flex flex-col'>
+      <span className='text-5xl my-2'>Pokemons</span>
+      <PokemonGrid pokemons={pokemons} />
     </div>
   );
 }
