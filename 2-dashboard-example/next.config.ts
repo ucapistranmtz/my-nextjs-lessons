@@ -13,4 +13,4 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;        ///test
             
-   
+        // This is a Next.js configuration file that sets up remote image patternsdddd
