@@ -1,5 +1,6 @@
-import { CartCounter } from '@/app/shopping-cart';
+import { CartCounter } from "@/src/shopping-cart";
 
+ 
 export const metadata = {
   title: 'Counter Page',
   description: 'A simple counter page to demonstrate state management in Next.js',
